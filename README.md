@@ -2,19 +2,21 @@
 ### This guide is a fully detailed guide to install everything necessary to run Wiki.js on a brand new Ubuntu >= 18.04 LTS machine.
 
 ## How to install Wiki.js on Ubuntu 23.10 (Server-Minimum)
-## 
-## At the end of the guide, you'll have a fully working Wiki.js instance with the following components:
-## 
-##     Docker
-##     PostgreSQL 11 (dockerized)
-##     Wiki.js 2.x (dockerized, accessible via port 80)
-##     Wiki.js Update Companion (dockerized)
-##     OpenSSH with UFW Firewall preconfigured for SSH, HTTP and HTTPS
+ 
+ At the end of the guide, you'll have a fully working Wiki.js instance with the following components:
+ 
+     Docker
+     PostgreSQL 11 (dockerized)
+     Wiki.js 2.x (dockerized, accessible via port 80)
+     Wiki.js Update Companion (dockerized)
+     OpenSSH with UFW Firewall preconfigured for SSH, HTTP and HTTPS
 
 ## Update & Install Prerequisite 
 
 sudo apt -qqy update
+
 sudo apt install nano && sudo apt install  ufw  
+
 sudo DEBIAN_FRONTEND=noninteractive apt-get -qqy -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' dist-upgrade
 
 ## Install Docker
@@ -31,18 +33,25 @@ sudo apt -qqy update && sudo apt -qqy -o Dpkg::Options::='--force-confdef' -o Dp
 
 ## Setup Containers
 ## Create internal docker network
+
 docker network create wikinet
 
 ## Create data volume for PostgreSQL
+
 docker volume create pgdata
+
 sudo mkdir -p /etc/wiki
+
 sudo openssl rand -base64 32 > /etc/wiki/.db-secret
 
 ## Note if you get a permissions error on the above break it into two commands copy the output from the first and paste it into the file like:
 
 sudo openssl rand -base64 32
+
 sudo vi /etc/wiki/.db-secret
+
 sudo docker network create wikinet
+
 sudo docker volume create pgdata
 
 ## Create the Containers
